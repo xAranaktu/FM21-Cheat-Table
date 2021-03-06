@@ -114,7 +114,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>16</ID>
                       <Description>"Addr"</Description>
-                      <LastState Value="000000014690A558" RealAddress="7F1DFCF0"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>8 Bytes</VariableType>
@@ -126,7 +125,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>4</ID>
                       <Description>"vt"</Description>
-                      <LastState Value="0000000146909D18" RealAddress="7F1DFF60"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>8 Bytes</VariableType>
@@ -138,7 +136,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>12</ID>
                       <Description>"Row ID"</Description>
-                      <LastState Value="251156" RealAddress="7F1DFF68"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -149,7 +146,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>11</ID>
                       <Description>"UID"</Description>
-                      <LastState Value="2000205796" RealAddress="7F1DFF6C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -170,7 +166,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>9</ID>
                   <Description>"First Name (Read only)"</Description>
-                  <LastState RealAddress="7B394470"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>28</Length>
@@ -187,7 +182,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>10</ID>
                   <Description>"Last Name (Read only)"</Description>
-                  <LastState RealAddress="7ACC0070"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>28</Length>
@@ -204,7 +198,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>7</ID>
                   <Description>"Birth Year"</Description>
-                  <LastState Value="2005" RealAddress="7F1DFFA6"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -215,7 +208,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>119</ID>
                   <Description>"Weight"</Description>
-                  <LastState Value="59" RealAddress="7F1DFD94"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -226,7 +218,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>118</ID>
                   <Description>"Height"</Description>
-                  <LastState Value="175" RealAddress="7F1DFD96"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -245,7 +236,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>112</ID>
                   <Description>"Fitness"</Description>
-                  <LastState Value="4900" RealAddress="7F1DFEE0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -256,7 +246,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>113</ID>
                   <Description>"Condition"</Description>
-                  <LastState Value="10000" RealAddress="7F1DFEE4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -267,7 +256,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>114</ID>
                   <Description>"Jadedness"</Description>
-                  <LastState Value="76" RealAddress="7F1DFEE2"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -278,7 +266,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>117</ID>
                   <Description>"Home Rep"</Description>
-                  <LastState Value="3588" RealAddress="7F1DFEE6"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -289,7 +276,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>116</ID>
                   <Description>"Current Rep"</Description>
-                  <LastState Value="3814" RealAddress="7F1DFEE8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -300,7 +286,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>115</ID>
                   <Description>"World Rep"</Description>
-                  <LastState Value="704" RealAddress="7F1DFEEA"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -320,7 +305,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>23</ID>
                   <Description>"Adaptability"</Description>
-                  <LastState Value="20" RealAddress="7F1DFFD8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -331,7 +315,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>30</ID>
                   <Description>"Ambition"</Description>
-                  <LastState Value="20" RealAddress="7F1DFFD9"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -342,7 +325,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>29</ID>
                   <Description>"Loyalty"</Description>
-                  <LastState Value="20" RealAddress="7F1DFFDA"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -353,7 +335,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>28</ID>
                   <Description>"Pressure"</Description>
-                  <LastState Value="20" RealAddress="7F1DFFDB"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -364,7 +345,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>27</ID>
                   <Description>"Professionalism"</Description>
-                  <LastState Value="20" RealAddress="7F1DFFDC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -375,7 +355,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>26</ID>
                   <Description>"Sportsmanship"</Description>
-                  <LastState Value="20" RealAddress="7F1DFFDD"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -386,7 +365,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>25</ID>
                   <Description>"Temperament"</Description>
-                  <LastState Value="20" RealAddress="7F1DFFDE"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -397,7 +375,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>24</ID>
                   <Description>"Controversy"</Description>
-                  <LastState Value="20" RealAddress="7F1DFFDF"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -417,7 +394,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>32</ID>
                   <Description>"GK"</Description>
-                  <LastState Value="1" RealAddress="7F1DFEF4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -428,7 +404,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>35</ID>
                   <Description>"SW"</Description>
-                  <LastState Value="1" RealAddress="7F1DFEF5"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -439,7 +414,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>34</ID>
                   <Description>"DL"</Description>
-                  <LastState Value="1" RealAddress="7F1DFEF6"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -450,7 +424,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>33</ID>
                   <Description>"DC"</Description>
-                  <LastState Value="1" RealAddress="7F1DFEF7"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -461,7 +434,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>36</ID>
                   <Description>"DR"</Description>
-                  <LastState Value="1" RealAddress="7F1DFEF8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -472,7 +444,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>37</ID>
                   <Description>"WBL"</Description>
-                  <LastState Value="1" RealAddress="7F1DFF01"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -483,7 +454,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>38</ID>
                   <Description>"WBR"</Description>
-                  <LastState Value="1" RealAddress="7F1DFF02"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -494,7 +464,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>39</ID>
                   <Description>"DM"</Description>
-                  <LastState Value="1" RealAddress="7F1DFEF9"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -505,7 +474,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>40</ID>
                   <Description>"ML"</Description>
-                  <LastState Value="1" RealAddress="7F1DFEFA"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -516,7 +484,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>41</ID>
                   <Description>"MC"</Description>
-                  <LastState Value="1" RealAddress="7F1DFEFB"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -527,7 +494,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>42</ID>
                   <Description>"MR"</Description>
-                  <LastState Value="1" RealAddress="7F1DFEFC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -538,7 +504,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>43</ID>
                   <Description>"AML"</Description>
-                  <LastState Value="9" RealAddress="7F1DFEFD"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -549,7 +514,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>44</ID>
                   <Description>"AMC"</Description>
-                  <LastState Value="12" RealAddress="7F1DFEFE"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -560,7 +524,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>45</ID>
                   <Description>"AMR"</Description>
-                  <LastState Value="8" RealAddress="7F1DFEFF"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -571,7 +534,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>46</ID>
                   <Description>"ST"</Description>
-                  <LastState Value="20" RealAddress="7F1DFF00"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -585,13 +547,12 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
               <ID>18</ID>
               <Description>"Attributes"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" Activated="1" RealAddress="00000000"/>
+              <LastState Value="" RealAddress="00000000"/>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>17</ID>
                   <Description>"CA"</Description>
-                  <LastState Value="70" RealAddress="7F1DFEEC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -602,7 +563,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>19</ID>
                   <Description>"PA"</Description>
-                  <LastState Value="139" RealAddress="7F1DFEEE"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -613,7 +573,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>90</ID>
                   <Description>"Left Foot"</Description>
-                  <LastState Value="100" RealAddress="7F1DFF1B"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -624,7 +583,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>104</ID>
                   <Description>"Right Foot"</Description>
-                  <LastState Value="32" RealAddress="7F1DFF1C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -642,7 +600,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>103</ID>
                       <Description>"Aerial Reach"</Description>
-                      <LastState Value="5" RealAddress="7F1DFF0F"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -653,7 +610,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>91</ID>
                       <Description>"Command Of Area"</Description>
-                      <LastState Value="10" RealAddress="7F1DFF10"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -664,7 +620,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>92</ID>
                       <Description>"Communication"</Description>
-                      <LastState Value="5" RealAddress="7F1DFF11"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -675,7 +630,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>93</ID>
                       <Description>"Eccentricity"</Description>
-                      <LastState Value="10" RealAddress="7F1DFF22"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -686,7 +640,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>94</ID>
                       <Description>"First Touch"</Description>
-                      <LastState Value="70" RealAddress="7F1DFF19"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -697,7 +650,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>95</ID>
                       <Description>"Handling"</Description>
-                      <LastState Value="10" RealAddress="7F1DFF0E"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -708,7 +660,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>96</ID>
                       <Description>"Kicking"</Description>
-                      <LastState Value="5" RealAddress="7F1DFF12"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -719,7 +670,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>97</ID>
                       <Description>"One On Ones"</Description>
-                      <LastState Value="5" RealAddress="7F1DFF16"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -730,7 +680,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>98</ID>
                       <Description>"Passing"</Description>
-                      <LastState Value="30" RealAddress="7F1DFF0A"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -741,7 +690,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>99</ID>
                       <Description>"Punching"</Description>
-                      <LastState Value="10" RealAddress="7F1DFF24"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -752,7 +700,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>100</ID>
                       <Description>"Reflexes"</Description>
-                      <LastState Value="10" RealAddress="7F1DFF18"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -763,7 +710,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>102</ID>
                       <Description>"Rushing Out"</Description>
-                      <LastState Value="10" RealAddress="7F1DFF23"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -774,7 +720,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>101</ID>
                       <Description>"Throwing"</Description>
-                      <LastState Value="5" RealAddress="7F1DFF13"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -788,13 +733,12 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                   <ID>49</ID>
                   <Description>"Technical"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" Activated="1" RealAddress="00000000"/>
+                  <LastState Value="" RealAddress="00000000"/>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>50</ID>
                       <Description>"Corners"</Description>
-                      <LastState Value="17" RealAddress="7F1DFF1E"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -805,7 +749,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>51</ID>
                       <Description>"Crossing"</Description>
-                      <LastState Value="26" RealAddress="7F1DFF03"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -816,7 +759,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>52</ID>
                       <Description>"Dribbling"</Description>
-                      <LastState Value="39" RealAddress="7F1DFF04"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -827,7 +769,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>53</ID>
                       <Description>"Finishing"</Description>
-                      <LastState Value="49" RealAddress="7F1DFF05"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -838,7 +779,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>54</ID>
                       <Description>"First Touch"</Description>
-                      <LastState Value="70" RealAddress="7F1DFF19"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -849,7 +789,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>55</ID>
                       <Description>"Free Kick Taking"</Description>
-                      <LastState Value="28" RealAddress="7F1DFF26"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -860,7 +799,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>56</ID>
                       <Description>"Heading"</Description>
-                      <LastState Value="29" RealAddress="7F1DFF06"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -871,7 +809,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>57</ID>
                       <Description>"Long Shots"</Description>
-                      <LastState Value="25" RealAddress="7F1DFF07"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -882,7 +819,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>58</ID>
                       <Description>"Long Throws"</Description>
-                      <LastState Value="14" RealAddress="7F1DFF21"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -893,7 +829,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>59</ID>
                       <Description>"Marking"</Description>
-                      <LastState Value="7" RealAddress="7F1DFF08"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -904,7 +839,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>60</ID>
                       <Description>"Passing"</Description>
-                      <LastState Value="30" RealAddress="7F1DFF0A"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -915,7 +849,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>61</ID>
                       <Description>"Penalty Taking"</Description>
-                      <LastState Value="21" RealAddress="7F1DFF0B"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -926,7 +859,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>62</ID>
                       <Description>"Tackling"</Description>
-                      <LastState Value="13" RealAddress="7F1DFF0C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -937,7 +869,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>63</ID>
                       <Description>"Technique"</Description>
-                      <LastState Value="42" RealAddress="7F1DFF1A"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -957,7 +888,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>65</ID>
                       <Description>"Aggression"</Description>
-                      <LastState Value="30" RealAddress="7F1DFF30"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -968,7 +898,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>66</ID>
                       <Description>"Anticipation"</Description>
-                      <LastState Value="34" RealAddress="7F1DFF14"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -979,7 +908,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>67</ID>
                       <Description>"Bravery"</Description>
-                      <LastState Value="37" RealAddress="7F1DFF2E"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -990,7 +918,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>68</ID>
                       <Description>"Composure"</Description>
-                      <LastState Value="64" RealAddress="7F1DFF37"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1001,7 +928,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>69</ID>
                       <Description>"Concentration"</Description>
-                      <LastState Value="12" RealAddress="7F1DFF38"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1012,7 +938,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>70</ID>
                       <Description>"Decisions"</Description>
-                      <LastState Value="39" RealAddress="7F1DFF15"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1023,7 +948,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>71</ID>
                       <Description>"Determination"</Description>
-                      <LastState Value="100" RealAddress="7F1DFF36"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1034,7 +958,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>72</ID>
                       <Description>"Flair"</Description>
-                      <LastState Value="70" RealAddress="7F1DFF1D"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1045,7 +968,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>73</ID>
                       <Description>"Leadership"</Description>
-                      <LastState Value="54" RealAddress="7F1DFF2B"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1056,7 +978,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>74</ID>
                       <Description>"Off The Ball"</Description>
-                      <LastState Value="66" RealAddress="7F1DFF09"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1067,7 +988,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>76</ID>
                       <Description>"Positioning"</Description>
-                      <LastState Value="13" RealAddress="7F1DFF17"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1078,7 +998,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>77</ID>
                       <Description>"Teamwork"</Description>
-                      <LastState Value="52" RealAddress="7F1DFF1F"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1089,7 +1008,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>78</ID>
                       <Description>"Vision"</Description>
-                      <LastState Value="35" RealAddress="7F1DFF0D"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1100,7 +1018,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>79</ID>
                       <Description>"Work Rate"</Description>
-                      <LastState Value="65" RealAddress="7F1DFF20"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1120,7 +1037,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>80</ID>
                       <Description>"Acceleration"</Description>
-                      <LastState Value="74" RealAddress="7F1DFF25"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1131,7 +1047,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>83</ID>
                       <Description>"Agility"</Description>
-                      <LastState Value="74" RealAddress="7F1DFF31"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1142,7 +1057,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>82</ID>
                       <Description>"Balance"</Description>
-                      <LastState Value="67" RealAddress="7F1DFF2D"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1153,7 +1067,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>84</ID>
                       <Description>"Jumping Reach"</Description>
-                      <LastState Value="43" RealAddress="7F1DFF2A"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1164,7 +1077,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>85</ID>
                       <Description>"Natural Fitness"</Description>
-                      <LastState Value="65" RealAddress="7F1DFF35"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1175,7 +1087,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>86</ID>
                       <Description>"Pace"</Description>
-                      <LastState Value="61" RealAddress="7F1DFF29"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1186,7 +1097,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>87</ID>
                       <Description>"Stamina"</Description>
-                      <LastState Value="44" RealAddress="7F1DFF28"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1197,7 +1107,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>88</ID>
                       <Description>"Strength"</Description>
-                      <LastState Value="14" RealAddress="7F1DFF27"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1217,7 +1126,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>106</ID>
                       <Description>"Dirtiness"</Description>
-                      <LastState Value="40" RealAddress="7F1DFF2C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1228,7 +1136,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>107</ID>
                       <Description>"Consistency"</Description>
-                      <LastState Value="35" RealAddress="7F1DFF2F"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1239,7 +1146,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>108</ID>
                       <Description>"Imp. Matches"</Description>
-                      <LastState Value="75" RealAddress="7F1DFF32"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1250,7 +1156,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>109</ID>
                       <Description>"Injury Proneness"</Description>
-                      <LastState Value="90" RealAddress="7F1DFF33"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1261,7 +1166,6 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <CheatEntry>
                       <ID>110</ID>
                       <Description>"Versatility"</Description>
-                      <LastState Value="40" RealAddress="7F1DFF34"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>pCurrentPlayer</Address>
@@ -1286,6 +1190,20 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
         <CheatEntry>
           <ID>121</ID>
           <Description>"patreon.com/xAranaktu"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>123</ID>
+      <Description>"GitHub:"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>124</ID>
+          <Description>"https://github.com/xAranaktu/FM21-Cheat-Table"</Description>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
         </CheatEntry>
