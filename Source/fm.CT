@@ -3,7 +3,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>122</ID>
-      <Description>"Cheat Table Ver: 1.0.0"</Description>
+      <Description>"Cheat Table Ver: 1.0.1"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
     </CheatEntry>
@@ -14,14 +14,63 @@
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
-//code from here to '[DISABLE]' will be used to enable the cheat
+{$lua}
+if syntaxcheck then return end
 
-globalalloc(pCurrentPlayer, 8, 140000000)
+function getProcessNameFromProcessID(iProcessID)
+    if iProcessID &lt; 1 then return 0 end
+    local plist = createStringlist()
+    getProcesslist(plist)
+    for i=1, strings_getCount(plist)-1 do
+        local process = strings_getString(plist, i)
+        local offset = string.find(process,'-')
+        local pid = tonumber('0x'..string.sub(process,1,offset-1))
+        local pname = string.sub(process,offset+1)
+        if pid == iProcessID then return pname end
+    end
+    return 0
+end
+
+function getOpenedProcessName()
+    local process = getOpenedProcessID()
+    if process ~= 0 and getProcessIDFromProcessName(nil) == getOpenedProcessID() then
+        if checkOpenedProcess(nil) == true then return nil end
+        return nil
+    end
+    return getProcessNameFromProcessID(process)
+end
+
+if (getCEVersion() &lt; 7.2) then
+    print(string.format("Warning! You are using CE %f. Recommended CE 7.2 or newer", ce_ver))
+end
+
+if (not cheatEngineIs64Bit()) then
+   print("Warning! Detected non 64bit version of Cheat Engine. Cheat Table may not work properly.")
+end
+
+ATTACHED_TO = getOpenedProcessName()
+if (ATTACHED_TO == nil) then
+    print("Open Game Process First.")
+end
+GAME_BASE_ADDRESS = getAddress(ATTACHED_TO)
+--local module_size = getModuleSize(attached_to)
+--print(attached_to)
+--print(string.format("Base Addr: 0x%X (Size: 0x%X)", GAME_BASE_ADDRESS, module_size))
+
+{$asm}
+globalalloc(pCurrentPlayer, 8, $GAME_BASE_ADDRESS)
 pCurrentPlayer:
 dq 0
 
+globalalloc(pCurrentClub, 8, $GAME_BASE_ADDRESS)
+pCurrentClub:
+dq 0
+
+globalalloc(pCurrentStaff, 8, $GAME_BASE_ADDRESS)
+pCurrentStaff:
+dq 0
+
 [DISABLE]
-//code from here till the end of the code will be used to disable the cheat
 </AssemblerScript>
       <CheatEntries>
         <CheatEntry>
@@ -43,7 +92,7 @@ dq 0
 
 
 
-aobscanmodule(INJECT_getCurrentPlayer1,fm.exe,48 03 CB 48 8B 11 4C 8B 82 48 04 00 00 33 D2 41 FF D0 33 D2 48 8D 8E 58 01 00 00 48 8B F8 E8 ?? ?? ?? ?? 48) // should be unique
+aobscanmodule(INJECT_getCurrentPlayer1,$ATTACHED_TO,48 03 CB 48 8B 11 4C 8B 82 48 04 00 00 33 D2 41 FF D0 33 D2 48 8D 8E 58 01 00 00 48 8B F8 E8 ?? ?? ?? ?? 48) // should be unique
 alloc(newmem_getCurrentPlayer1,$1000,INJECT_getCurrentPlayer1)
 
 label(code)
@@ -108,12 +157,13 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 <CheatEntry>
                   <ID>6</ID>
                   <Description>"Dont touch"</Description>
+                  <Options moHideChildren="1"/>
                   <LastState Value="" RealAddress="00000000"/>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>16</ID>
-                      <Description>"Addr"</Description>
+                      <Description>"pPlayer"</Description>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>8 Bytes</VariableType>
@@ -164,36 +214,140 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
-                  <ID>9</ID>
-                  <Description>"First Name (Read only)"</Description>
-                  <ShowAsSigned>0</ShowAsSigned>
-                  <VariableType>String</VariableType>
-                  <Length>28</Length>
-                  <Unicode>0</Unicode>
-                  <CodePage>0</CodePage>
-                  <ZeroTerminate>1</ZeroTerminate>
-                  <Address>pCurrentPlayer</Address>
-                  <Offsets>
-                    <Offset>4</Offset>
-                    <Offset>0</Offset>
-                    <Offset>2c8</Offset>
-                  </Offsets>
+                  <ID>127</ID>
+                  <Description>"Name (Read Only)"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>126</ID>
+                      <Description>"First Name"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>String</VariableType>
+                      <Length>28</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>pCurrentPlayer</Address>
+                      <Offsets>
+                        <Offset>4</Offset>
+                        <Offset>0</Offset>
+                        <Offset>2c8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>10</ID>
+                      <Description>"Last Name"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>String</VariableType>
+                      <Length>28</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>pCurrentPlayer</Address>
+                      <Offsets>
+                        <Offset>4</Offset>
+                        <Offset>0</Offset>
+                        <Offset>2d0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>9</ID>
+                      <Description>"Full Name"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>String</VariableType>
+                      <Length>32</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>pCurrentPlayer</Address>
+                      <Offsets>
+                        <Offset>4</Offset>
+                        <Offset>2b8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
                 </CheatEntry>
                 <CheatEntry>
-                  <ID>10</ID>
-                  <Description>"Last Name (Read only)"</Description>
-                  <ShowAsSigned>0</ShowAsSigned>
-                  <VariableType>String</VariableType>
-                  <Length>28</Length>
-                  <Unicode>0</Unicode>
-                  <CodePage>0</CodePage>
-                  <ZeroTerminate>1</ZeroTerminate>
-                  <Address>pCurrentPlayer</Address>
-                  <Offsets>
-                    <Offset>4</Offset>
-                    <Offset>0</Offset>
-                    <Offset>2d0</Offset>
-                  </Offsets>
+                  <ID>130</ID>
+                  <Description>"Nationality (Read Only)"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>131</ID>
+                      <Description>"Full Name"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>String</VariableType>
+                      <Length>32</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>pCurrentPlayer</Address>
+                      <Offsets>
+                        <Offset>4</Offset>
+                        <Offset>b8</Offset>
+                        <Offset>2e0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>132</ID>
+                      <Description>"Shortname"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>String</VariableType>
+                      <Length>32</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>pCurrentPlayer</Address>
+                      <Offsets>
+                        <Offset>4</Offset>
+                        <Offset>C0</Offset>
+                        <Offset>2e0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>133</ID>
+                      <Description>"3 Letter Name"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>String</VariableType>
+                      <Length>32</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>pCurrentPlayer</Address>
+                      <Offsets>
+                        <Offset>4</Offset>
+                        <Offset>D0</Offset>
+                        <Offset>2e0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>139</ID>
+                  <Description>"Team Club (Read Only)"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>140</ID>
+                      <Description>"Name"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>pCurrentPlayer</Address>
+                      <Offsets>
+                        <Offset>4</Offset>
+                        <Offset>b8</Offset>
+                        <Offset>30</Offset>
+                        <Offset>88</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>7</ID>
@@ -207,7 +361,7 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 </CheatEntry>
                 <CheatEntry>
                   <ID>119</ID>
-                  <Description>"Weight"</Description>
+                  <Description>"Weight (kg)"</Description>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -217,7 +371,7 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                 </CheatEntry>
                 <CheatEntry>
                   <ID>118</ID>
-                  <Description>"Height"</Description>
+                  <Description>"Height (cm)"</Description>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>2 Bytes</VariableType>
                   <Address>pCurrentPlayer</Address>
@@ -225,11 +379,75 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
                     <Offset>a6</Offset>
                   </Offsets>
                 </CheatEntry>
+                <CheatEntry>
+                  <ID>125</ID>
+                  <Description>"Value (£)"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pCurrentPlayer</Address>
+                  <Offsets>
+                    <Offset>128</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>134</ID>
+              <Description>"Contract"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>135</ID>
+                  <Description>"Wage Per Week (£)"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pCurrentPlayer</Address>
+                  <Offsets>
+                    <Offset>18</Offset>
+                    <Offset>338</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>136</ID>
+                  <Description>"Started Year"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>pCurrentPlayer</Address>
+                  <Offsets>
+                    <Offset>3e</Offset>
+                    <Offset>338</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>137</ID>
+                  <Description>"Expires Year"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>pCurrentPlayer</Address>
+                  <Offsets>
+                    <Offset>42</Offset>
+                    <Offset>338</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>138</ID>
+                  <Description>"Join Year"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>pCurrentPlayer</Address>
+                  <Offsets>
+                    <Offset>46</Offset>
+                    <Offset>338</Offset>
+                  </Offsets>
+                </CheatEntry>
               </CheatEntries>
             </CheatEntry>
             <CheatEntry>
               <ID>111</ID>
               <Description>"Other"</Description>
+              <Options moHideChildren="1"/>
               <LastState Value="" RealAddress="00000000"/>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
@@ -1179,6 +1397,1232 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
+        <CheatEntry>
+          <ID>142</ID>
+          <Description>"Current Club"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : fm.exe
+  Version:
+  Date   : 2021-03-09
+  Author : Aranaktu
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+//code_getCurrentClub1 from here to '[DISABLE]' will be used to enable the cheat
+
+
+
+aobscanmodule(INJECT_getCurrentClub1,$ATTACHED_TO,48 8B 10 48 8B C8 FF 52 38 83 F8 01 74 08 83) // should be unique
+alloc(newmem_getCurrentClub1,$1000,INJECT_getCurrentClub1)
+
+label(code_getCurrentClub1)
+label(ret_getCurrentClub1)
+
+newmem_getCurrentClub1:
+  mov [pCurrentClub], rax
+code_getCurrentClub1:
+  mov rdx,[rax]
+  mov rcx,rax
+  jmp ret_getCurrentClub1
+
+INJECT_getCurrentClub1:
+  jmp newmem_getCurrentClub1
+  nop
+ret_getCurrentClub1:
+registersymbol(INJECT_getCurrentClub1)
+
+[DISABLE]
+//code_getCurrentClub1 from here till the end of the code_getCurrentClub1 will be used to disable the cheat
+INJECT_getCurrentClub1:
+  db 48 8B 10 48 8B C8
+
+unregistersymbol(INJECT_getCurrentClub1)
+dealloc(newmem_getCurrentClub1)
+
+{
+// ORIGINAL code_getCurrentClub1 - INJECT_getCurrentClub1ION POINT: fm.exe+15B6A54
+
+fm.exe+15B6A2A: 0F 84 E3 00 00 00  - je fm.exe+15B6B13
+fm.exe+15B6A30: E8 AB 31 B0 02     - call fm.exe+40B9BE0
+fm.exe+15B6A35: 48 8B 4D AF        - mov rcx,[rbp-51]
+fm.exe+15B6A39: 48 83 C0 08        - add rax,08
+fm.exe+15B6A3D: 4C 89 7D BF        - mov [rbp-41],r15
+fm.exe+15B6A41: 48 89 45 B7        - mov [rbp-49],rax
+fm.exe+15B6A45: 48 8B 01           - mov rax,[rcx]
+fm.exe+15B6A48: FF 50 40           - call qword ptr [rax+40]
+fm.exe+15B6A4B: 48 85 C0           - test rax,rax
+fm.exe+15B6A4E: 0F 84 83 00 00 00  - je fm.exe+15B6AD7
+// ---------- INJECT_getCurrentClub1ING HERE ----------
+fm.exe+15B6A54: 48 8B 10           - mov rdx,[rax]
+// ---------- DONE INJECT_getCurrentClub1ING  ----------
+fm.exe+15B6A57: 48 8B C8           - mov rcx,rax
+fm.exe+15B6A5A: FF 52 38           - call qword ptr [rdx+38]
+fm.exe+15B6A5D: 83 F8 01           - cmp eax,01
+fm.exe+15B6A60: 74 08              - je fm.exe+15B6A6A
+fm.exe+15B6A62: 83 C0 E8           - add eax,-18
+fm.exe+15B6A65: 83 F8 01           - cmp eax,01
+fm.exe+15B6A68: 77 6D              - ja fm.exe+15B6AD7
+fm.exe+15B6A6A: 48 8B 4D AF        - mov rcx,[rbp-51]
+fm.exe+15B6A6E: 4C 8D 45 B7        - lea r8,[rbp-49]
+fm.exe+15B6A72: BA 65 53 64 55     - mov edx,55645365
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>143</ID>
+              <Description>"_"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>144</ID>
+                  <Description>"Dont touch"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>145</ID>
+                      <Description>"pClub"</Description>
+                      <LastState Value="00000001468F6628" RealAddress="38DF1870"/>
+                      <ShowAsHex>1</ShowAsHex>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>8 Bytes</VariableType>
+                      <Address>pCurrentClub</Address>
+                      <Offsets>
+                        <Offset>0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>147</ID>
+                      <Description>"Row ID"</Description>
+                      <LastState Value="1086" RealAddress="38DF1878"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>pCurrentClub</Address>
+                      <Offsets>
+                        <Offset>8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>148</ID>
+                      <Description>"UID"</Description>
+                      <LastState Value="1456" RealAddress="38DF187C"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>pCurrentClub</Address>
+                      <Offsets>
+                        <Offset>C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>149</ID>
+              <Description>"Club Info"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>150</ID>
+                  <Description>"Full Name"</Description>
+                  <LastState RealAddress="2BF93FD0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>32</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                    <Offset>B8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>151</ID>
+                  <Description>"Short Name"</Description>
+                  <LastState RealAddress="38DDDD40"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>32</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                    <Offset>c0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>160</ID>
+                  <Description>"Nickname"</Description>
+                  <LastState RealAddress="38DDDC60"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>32</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                    <Offset>90</Offset>
+                    <Offset>b0</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>165</ID>
+              <Description>"Facilities"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>167</ID>
+                  <Description>"Stadium"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>166</ID>
+                      <Description>"Name"</Description>
+                      <LastState RealAddress="5357A340"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>String</VariableType>
+                      <Length>32</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>pCurrentClub</Address>
+                      <Offsets>
+                        <Offset>4</Offset>
+                        <Offset>40</Offset>
+                        <Offset>78</Offset>
+                        <Offset>0</Offset>
+                        <Offset>18</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>169</ID>
+                      <Description>"Year Built"</Description>
+                      <LastState Value="2011" RealAddress="706C0B62"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>2 Bytes</VariableType>
+                      <Address>pCurrentClub</Address>
+                      <Offsets>
+                        <Offset>22</Offset>
+                        <Offset>78</Offset>
+                        <Offset>0</Offset>
+                        <Offset>18</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>170</ID>
+                      <Description>"Capacity"</Description>
+                      <LastState Value="30967" RealAddress="706C0BAC"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>pCurrentClub</Address>
+                      <Offsets>
+                        <Offset>6C</Offset>
+                        <Offset>78</Offset>
+                        <Offset>0</Offset>
+                        <Offset>18</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>171</ID>
+                      <Description>"Capacity (seated)"</Description>
+                      <LastState Value="30967" RealAddress="706C0BB0"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>pCurrentClub</Address>
+                      <Offsets>
+                        <Offset>70</Offset>
+                        <Offset>78</Offset>
+                        <Offset>0</Offset>
+                        <Offset>18</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>172</ID>
+                      <Description>"Avg. Attendance"</Description>
+                      <LastState Value="14994" RealAddress="76140308"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>pCurrentClub</Address>
+                      <Offsets>
+                        <Offset>68</Offset>
+                        <Offset>b0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>173</ID>
+                      <Description>"Min. Attendance"</Description>
+                      <LastState Value="13017" RealAddress="7614030C"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>pCurrentClub</Address>
+                      <Offsets>
+                        <Offset>6C</Offset>
+                        <Offset>b0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>174</ID>
+                      <Description>"Max. Attendance"</Description>
+                      <LastState Value="25401" RealAddress="76140310"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>pCurrentClub</Address>
+                      <Offsets>
+                        <Offset>70</Offset>
+                        <Offset>b0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>176</ID>
+                  <Description>"Corporate Facilities"</Description>
+                  <LastState Value="20" RealAddress="38D82F6D"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>88d</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>180</ID>
+                  <Description>"Training Facilities"</Description>
+                  <LastState Value="20" RealAddress="761032F8"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>e8</Offset>
+                    <Offset>f8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>175</ID>
+                  <Description>"Youth Facilities"</Description>
+                  <LastState Value="18" RealAddress="76103303"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>f3</Offset>
+                    <Offset>f8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>179</ID>
+                  <Description>"Youth Importance"</Description>
+                  <LastState Value="5" RealAddress="761032F1"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>e1</Offset>
+                    <Offset>f8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>178</ID>
+                  <Description>"Junior Coaching"</Description>
+                  <LastState Value="16" RealAddress="76103304"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>f4</Offset>
+                    <Offset>f8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>177</ID>
+                  <Description>"Youth Recruitment"</Description>
+                  <LastState Value="20" RealAddress="76103305"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>f5</Offset>
+                    <Offset>f8</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>152</ID>
+              <Description>"Finances"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>153</ID>
+                  <Description>"Balance (£)"</Description>
+                  <LastState Value="11290468" RealAddress="38D826F4"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>14</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>161</ID>
+                  <Description>"Transfer Budget (£)"</Description>
+                  <LastState Value="2301125" RealAddress="38D82E84"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>7a4</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>162</ID>
+                  <Description>"Income % Available"</Description>
+                  <LastState Value="70" RealAddress="38D82E90"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>7b0</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>163</ID>
+                  <Description>"Weekly Wage Budget (£)"</Description>
+                  <LastState Value="202528" RealAddress="38D82EC8"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>7e8</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>164</ID>
+                  <Description>"Wage Budget Used (£)"</Description>
+                  <LastState Value="168198" RealAddress="38D82ED4"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>7F4</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>154</ID>
+                  <Description>"Avg. Match Ticker Price (£)"</Description>
+                  <LastState Value="10.19958496" RealAddress="38D826F8"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>18</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>155</ID>
+                  <Description>"Avg. Season Ticker Price (£)"</Description>
+                  <LastState Value="142.7941895" RealAddress="38D826FC"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>1C</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>156</ID>
+                  <Description>"Match Ticket Price Ratio (£)"</Description>
+                  <LastState Value="1.172703028" RealAddress="38D82700"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>20</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>157</ID>
+                  <Description>"Season Ticket Price Ratio (£)"</Description>
+                  <LastState Value="1.252580643" RealAddress="38D82704"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>24</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>158</ID>
+                  <Description>"Season Ticket Change Ratio (£)"</Description>
+                  <LastState Value="1" RealAddress="38D82708"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>28</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>159</ID>
+                  <Description>"Sugar Daddy"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:None
+1:Front End
+2:Back End
+3:Underwriter
+4:Underwriter Expects Return
+</DropDownList>
+                  <LastState Value="0" RealAddress="38D8271C"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentClub</Address>
+                  <Offsets>
+                    <Offset>3C</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>182</ID>
+          <Description>"Current Staff"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : fm.exe
+  Version:
+  Date   : 2021-03-09
+  Author : Aranaktu
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+//code_getCurrentPerson1 from here to '[DISABLE]' will be used to enable the cheat
+
+
+
+aobscanmodule(INJECT_getCurrentPerson1,fm.exe,2D 8B 4A 08 49 8B 40 08) // should be unique
+alloc(newmem_getCurrentPerson1,$1000,INJECT_getCurrentPerson1)
+
+label(code_getCurrentPerson1)
+label(ret_getCurrentPerson1)
+
+newmem_getCurrentPerson1:
+  sub rdx, E8
+  mov [pCurrentStaff], rdx
+  add rdx, E8
+code_getCurrentPerson1:
+  mov ecx,[rdx+08]
+  mov rax,[r8+08]
+  jmp ret_getCurrentPerson1
+
+INJECT_getCurrentPerson1+01:
+  jmp newmem_getCurrentPerson1
+  nop
+  nop
+ret_getCurrentPerson1:
+registersymbol(INJECT_getCurrentPerson1)
+
+[DISABLE]
+//code_getCurrentPerson1 from here till the end of the code_getCurrentPerson1 will be used to disable the cheat
+INJECT_getCurrentPerson1+01:
+  db 8B 4A 08 49 8B 40 08
+
+unregistersymbol(INJECT_getCurrentPerson1)
+dealloc(newmem_getCurrentPerson1)
+
+{
+// ORIGINAL code_getCurrentPerson1 - INJECT_getCurrentPerson1ION POINT: fm.exe+16327DE
+
+fm.exe+16327CB: CC              - int 3
+fm.exe+16327CC: CC              - int 3
+fm.exe+16327CD: CC              - int 3
+fm.exe+16327CE: CC              - int 3
+fm.exe+16327CF: CC              - int 3
+fm.exe+16327D0: 48 83 EC 28     - sub rsp,28
+fm.exe+16327D4: 48 85 D2        - test rdx,rdx
+fm.exe+16327D7: 74 32           - je fm.exe+163280B
+fm.exe+16327D9: 4D 85 C0        - test r8,r8
+fm.exe+16327DC: 74 2D           - je fm.exe+163280B
+// ---------- INJECT_getCurrentPerson1ING HERE ----------
+fm.exe+16327DE: 8B 4A 08        - mov ecx,[rdx+08]
+// ---------- DONE INJECT_getCurrentPerson1ING  ----------
+fm.exe+16327E1: 49 8B 40 08     - mov rax,[r8+08]
+fm.exe+16327E5: 48 63 50 04     - movsxd  rdx,dword ptr [rax+04]
+fm.exe+16327E9: 42 39 4C 02 10  - cmp [rdx+r8+10],ecx
+fm.exe+16327EE: 74 1B           - je fm.exe+163280B
+fm.exe+16327F0: E8 4B F9 B9 03  - call fm.exe+51D2140
+fm.exe+16327F5: 48 85 C0        - test rax,rax
+fm.exe+16327F8: 74 11           - je fm.exe+163280B
+fm.exe+16327FA: 48 8B 10        - mov rdx,[rax]
+fm.exe+16327FD: 48 8B C8        - mov rcx,rax
+fm.exe+1632800: 48 83 C4 28     - add rsp,28
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>183</ID>
+              <Description>"_"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>184</ID>
+                  <Description>"Dont touch"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>185</ID>
+                      <Description>"pStaff"</Description>
+                      <LastState Value="00000001468F8288" RealAddress="81694290"/>
+                      <ShowAsHex>1</ShowAsHex>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>8 Bytes</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>186</ID>
+                      <Description>"Row ID"</Description>
+                      <LastState Value="46303" RealAddress="81694380"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>f0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>187</ID>
+                      <Description>"UID"</Description>
+                      <LastState Value="28062063" RealAddress="81694384"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>f4</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>188</ID>
+              <Description>"Info"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>189</ID>
+                  <Description>"First Name"</Description>
+                  <LastState RealAddress="728F3670"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>32</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                    <Offset>0</Offset>
+                    <Offset>140</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>190</ID>
+                  <Description>"Last Name"</Description>
+                  <LastState RealAddress="792EA510"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>32</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                    <Offset>0</Offset>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>194</ID>
+                  <Description>"Nationality"</Description>
+                  <LastState RealAddress="2AFA5D20"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>32</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                    <Offset>b8</Offset>
+                    <Offset>158</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>195</ID>
+                  <Description>"Place Of Birth"</Description>
+                  <LastState RealAddress="79210C70"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>32</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                    <Offset>18</Offset>
+                    <Offset>170</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>196</ID>
+              <Description>"Personality"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" Activated="1" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>197</ID>
+                  <Description>"Adaptability"</Description>
+                  <LastState Value="12" RealAddress="816943F0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>160</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>198</ID>
+                  <Description>"Ambition"</Description>
+                  <LastState Value="12" RealAddress="816943F1"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>161</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>204</ID>
+                  <Description>"Loyalty"</Description>
+                  <LastState Value="12" RealAddress="816943F2"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>162</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>203</ID>
+                  <Description>"Pressure"</Description>
+                  <LastState Value="12" RealAddress="816943F3"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>163</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>202</ID>
+                  <Description>"Professionalism"</Description>
+                  <LastState Value="12" RealAddress="816943F4"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>164</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>201</ID>
+                  <Description>"Sportsmanship"</Description>
+                  <LastState Value="11" RealAddress="816943F5"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>165</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>200</ID>
+                  <Description>"Temperament"</Description>
+                  <LastState Value="13" RealAddress="816943F6"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>166</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>199</ID>
+                  <Description>"Controversy"</Description>
+                  <LastState Value="5" RealAddress="816943F7"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>167</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>205</ID>
+              <Description>"Job Attributes"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" Activated="1" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>206</ID>
+                  <Description>"Manager"</Description>
+                  <LastState Value="20" RealAddress="819DCA2E"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>207</ID>
+                  <Description>"Assistant Manager"</Description>
+                  <LastState Value="18" RealAddress="819DCA2F"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>1</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>208</ID>
+                  <Description>"Coach"</Description>
+                  <LastState Value="15" RealAddress="819DCA30"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>2</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>209</ID>
+                  <Description>"Physio"</Description>
+                  <LastState Value="1" RealAddress="819DCA31"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>3</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>210</ID>
+                  <Description>"Scout"</Description>
+                  <LastState Value="1" RealAddress="819DCA32"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>215</ID>
+                  <Description>"GK Coach"</Description>
+                  <LastState Value="1" RealAddress="819DCA33"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>5</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>214</ID>
+                  <Description>"Fitness Coach"</Description>
+                  <LastState Value="19" RealAddress="819DCA34"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>6</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>213</ID>
+                  <Description>"Chairman"</Description>
+                  <LastState Value="1" RealAddress="819DCA35"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>7</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>212</ID>
+                  <Description>"Director Of Football"</Description>
+                  <LastState Value="1" RealAddress="819DCA36"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>8</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>211</ID>
+                  <Description>"Head of Youth Development"</Description>
+                  <LastState Value="1" RealAddress="819DCA37"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>9</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>216</ID>
+                  <Description>"Loan Manager"</Description>
+                  <LastState Value="1" RealAddress="819DCA38"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>A</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>219</ID>
+                  <Description>"Performance/Recruitment Analyst"</Description>
+                  <LastState Value="1" RealAddress="819DCA39"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>B</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>218</ID>
+                  <Description>"Sports Scientist"</Description>
+                  <LastState Value="1" RealAddress="819DCA3A"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>C</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>217</ID>
+                  <Description>"Technical Director"</Description>
+                  <LastState Value="1" RealAddress="819DCA3B"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>D</Offset>
+                    <Offset>1e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>191</ID>
+              <Description>"Attributes"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>192</ID>
+                  <Description>"CA"</Description>
+                  <LastState Value="121" RealAddress="81694362"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>d2</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>193</ID>
+                  <Description>"PA"</Description>
+                  <LastState Value="150" RealAddress="81694364"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>pCurrentStaff</Address>
+                  <Offsets>
+                    <Offset>d4</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>228</ID>
+                  <Description>"Analysis"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>237</ID>
+                  <Description>"NonTactical"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>238</ID>
+                      <Description>"Hardness of training"</Description>
+                      <LastState Value="10" RealAddress="816942BE"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>2E</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>239</ID>
+                      <Description>"Squad Rotation"</Description>
+                      <LastState Value="5" RealAddress="816942BF"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>2F</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>234</ID>
+                  <Description>"Tactical"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>235</ID>
+                      <Description>"Flexibility"</Description>
+                      <LastState Value="12" RealAddress="816942BD"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>2D</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>240</ID>
+                      <Description>"Tempo"</Description>
+                      <LastState Value="12" RealAddress="816942C0"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>30</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>236</ID>
+                      <Description>"Width"</Description>
+                      <LastState Value="14" RealAddress="816942C1"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>31</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>229</ID>
+                  <Description>"Coaching"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>232</ID>
+                      <Description>"GK Shot Stopping"</Description>
+                      <LastState Value="20" RealAddress="816942C3"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>33</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>233</ID>
+                      <Description>"Players"</Description>
+                      <LastState Value="75" RealAddress="816942C2"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>32</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>220</ID>
+                  <Description>"Medical"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>221</ID>
+                      <Description>"Physiotherapy"</Description>
+                      <LastState Value="10" RealAddress="816942C8"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>38</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>223</ID>
+                  <Description>"Knowledge"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>225</ID>
+                      <Description>"Judging CA"</Description>
+                      <LastState Value="60" RealAddress="816942C4"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>34</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>231</ID>
+                      <Description>"Judging PA"</Description>
+                      <LastState Value="70" RealAddress="816942C5"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>35</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>230</ID>
+                      <Description>"Tactical Knowledge"</Description>
+                      <LastState Value="60" RealAddress="816942C9"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>39</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>226</ID>
+                  <Description>"Mental"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>227</ID>
+                      <Description>"Motivating"</Description>
+                      <LastState Value="53" RealAddress="816942C7"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>pCurrentStaff</Address>
+                      <Offsets>
+                        <Offset>37</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
@@ -1214,6 +2658,18 @@ fm.exe+1D60C00: 75 14                 - jne fm.exe+1D60C16
     <SymbolEntry>
       <Name>pCurrentPlayer</Name>
       <Address>13FFF0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pCurrentTeam</Name>
+      <Address>13FFF0010</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pCurrentClub</Name>
+      <Address>13FFF0010</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pCurrentStaff</Name>
+      <Address>13FFF0020</Address>
     </SymbolEntry>
   </UserdefinedSymbols>
 </CheatTable>

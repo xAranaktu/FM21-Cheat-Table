@@ -1,0 +1,11 @@
+v.1.0.1:
+  - Added pointer for current club
+  - Added pointer for current staff
+  - Added to player:
+    - Full Name
+    - Team Club Name
+    - Nationality
+    - Value
+    - Contract
+v.1.0.0:
+  - pointer for player
