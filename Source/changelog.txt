@@ -1,3 +1,9 @@
+v.1.0.2:
+    - Added to staff:
+        - More attributes
+        - Contract
+    - Fixed pointer for current player when manager is unemployed
+    
 v.1.0.1:
   - Added pointer for current club
   - Added pointer for current staff
